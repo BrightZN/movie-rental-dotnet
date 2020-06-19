@@ -42,7 +42,7 @@ All you need to build this project is nodejs.
 
 Unit tests can be run using npm:
 
-    dotnet test tests
+    dotnet test MovieRental.Tests
 
 
-Tests are located in the tests directory and run using xunit.
+Tests are located in the [MovieRental.Tests](MovieRental.Tests/) directory and run using xunit.
