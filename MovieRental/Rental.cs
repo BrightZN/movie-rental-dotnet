@@ -2,8 +2,8 @@ namespace MovieRental
 {
     public class Rental
     {
-        public Movie Movie { get; set; }
-        public int DaysRented { get; set; }
+        public Movie Movie { get; }
+        public int DaysRented { get; }
 
         public Rental(Movie movie, int daysRented)
         {

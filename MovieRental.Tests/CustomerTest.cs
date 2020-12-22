@@ -7,13 +7,13 @@ namespace MovieRental.Tests
     public class CustomerTest
     {
         [Fact]
-        public void Test1()
+        public void Statement_WithRentalList_ReturnsPlainTextStatement()
         {
             Customer customer = new Customer("Bob");
-            customer.addRental(new Rental(new Movie("Jaws", Movie.REGULAR), 2));
-            customer.addRental(new Rental(new Movie("Short New", Movie.NEW_RELEASE), 1));
-            customer.addRental(new Rental(new Movie("Long New", Movie.NEW_RELEASE), 2));
-            customer.addRental(new Rental(new Movie("Toy Story", Movie.CHILDRENS), 4));
+            customer.AddRental(new Rental(new Movie("Jaws", Movie.Regular), 2));
+            customer.AddRental(new Rental(new Movie("Short New", Movie.NewRelease), 1));
+            customer.AddRental(new Rental(new Movie("Long New", Movie.NewRelease), 2));
+            customer.AddRental(new Rental(new Movie("Toy Story", Movie.Childrens), 4));
 
             String expected = "" +
                 "Rental Record for Bob\n" +
@@ -24,7 +24,7 @@ namespace MovieRental.Tests
                 "Amount owed is 14\n" +
                 "You earned 5 frequent renter points";
 
-            Assert.Equal(expected, customer.statement());
+            Assert.Equal(expected, customer.Statement());
         }
     }
 }
