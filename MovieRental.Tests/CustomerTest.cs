@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 using MovieRental;
 
@@ -9,11 +10,15 @@ namespace MovieRental.Tests
         [Fact]
         public void Statement_WithRentalList_ReturnsPlainTextStatement()
         {
-            var customer = new Customer("Bob");
-            customer.AddRental(new Rental(new Movie("Jaws", MoviePricing.Regular), 2));
-            customer.AddRental(new Rental(new Movie("Short New", MoviePricing.NewRelease), 1));
-            customer.AddRental(new Rental(new Movie("Long New", MoviePricing.NewRelease), 2));
-            customer.AddRental(new Rental(new Movie("Toy Story", MoviePricing.Childrens), 4));
+            var rentals = new Rentals(new List<Rental>
+            {
+                new Rental(new Movie("Jaws", MoviePricing.Regular), 2),
+                new Rental(new Movie("Short New", MoviePricing.NewRelease), 1),
+                new Rental(new Movie("Long New", MoviePricing.NewRelease), 2),
+                new Rental(new Movie("Toy Story", MoviePricing.Childrens), 4)
+            });
+            
+            var customer = new Customer("Bob", rentals);
 
             string expected = "" +
                 "Rental Record for Bob\n" +

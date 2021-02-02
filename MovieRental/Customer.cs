@@ -6,16 +6,13 @@ namespace MovieRental
 
     public class Customer
     {
-        private readonly List<Rental> _rentals = new List<Rental>();
+        private readonly Rentals _rentals;
 
-        public Customer(string name)
+        public Customer(string name, Rentals rentals)
         {
             Name = name;
-        }
 
-        public void AddRental(Rental rental)
-        {
-            _rentals.Add(rental);
+            _rentals = rentals;
         }
 
         public string Name { get; }
@@ -24,11 +21,10 @@ namespace MovieRental
         {
             string result = Header(Name);
 
-            foreach (var rental in _rentals)
-                result += LineItem(rental);
+            result += _rentals.StatementLines();
 
-            double totalAmount = _rentals.Sum(r => r.AmountOwed);
-            int frequentRenterPoints = _rentals.Sum(r => r.FrequentRenterPoints);
+            double totalAmount = _rentals.TotalAmountOwed;
+            int frequentRenterPoints = _rentals.TotalFrequentRenterPoints;
 
             result += Footer(totalAmount, frequentRenterPoints);
 
@@ -37,19 +33,16 @@ namespace MovieRental
 
         private string Footer(double totalAmount, int frequentRenterPoints)
         {
-            string result = "Amount owed is " + totalAmount + "\n";
-            result += "You earned " + frequentRenterPoints + " frequent renter points";
+            string result = $"Amount owed is {totalAmount}\n";
+            
+            result += $"You earned {frequentRenterPoints} frequent renter points";
+            
             return result;
         }
 
         private static string Header(string name)
         {
-            return "Rental Record for " + name + "\n";
-        }
-
-        private string LineItem(Rental rental)
-        {
-            return "\t" + rental.Movie.Title + "\t" + rental.AmountOwed + "\n";
+            return $"Rental Record for {name}\n";
         }
     }
 }
