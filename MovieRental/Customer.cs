@@ -9,7 +9,7 @@ namespace MovieRental
 
         public Customer(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public void AddRental(Rental rental)
@@ -25,7 +25,7 @@ namespace MovieRental
             int frequentRenterPoints = 0;
             string result = "Rental Record for " + Name + "\n";
 
-            foreach (Rental rental in _rentals)
+            foreach (var rental in _rentals)
             {
                 double thisAmount = 0;
 
@@ -50,7 +50,7 @@ namespace MovieRental
                 // add frequent renter points
                 frequentRenterPoints++;
                 // add bonus for a two day new release rental
-                if ((rental.Movie.PriceCode == Movie.NewRelease) && rental.DaysRented > 1)
+                if (rental.Movie.PriceCode == Movie.NewRelease && rental.DaysRented > 1)
                     frequentRenterPoints++;
 
                 // show figures for this rental
