@@ -22,24 +22,34 @@ namespace MovieRental
 
         public string Statement()
         {
-            string result = "Rental Record for " + Name + "\n";
+            string result = Header(Name);
 
             foreach (var rental in _rentals)
-            {
-                double thisAmount = rental.CalculateAmount();
+                result += LineItem(rental);
 
-                // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t" + thisAmount + "\n";
-            }
+            double totalAmount = _rentals.Sum(r => r.AmountOwed);
+            int frequentRenterPoints = _rentals.Sum(r => r.FrequentRenterPoints);
 
-            double totalAmount = _rentals.Sum(r => r.CalculateAmount());
-            int frequentRenterPoints = _rentals.Sum(r => r.CalculateFrequentRenterPoints());
-
-            // add footer lines
-            result += "Amount owed is " + totalAmount + "\n";
-            result += "You earned " + frequentRenterPoints + " frequent renter points";
+            result += Footer(totalAmount, frequentRenterPoints);
 
             return result;
+        }
+
+        private string Footer(double totalAmount, int frequentRenterPoints)
+        {
+            string result = "Amount owed is " + totalAmount + "\n";
+            result += "You earned " + frequentRenterPoints + " frequent renter points";
+            return result;
+        }
+
+        private static string Header(string name)
+        {
+            return "Rental Record for " + name + "\n";
+        }
+
+        private string LineItem(Rental rental)
+        {
+            return "\t" + rental.Movie.Title + "\t" + rental.AmountOwed + "\n";
         }
     }
 }

@@ -4,12 +4,8 @@ namespace MovieRental
 {
     public class Movie
     {
-        public const int Childrens = 2;
-        public const int NewRelease = 1;
-        public const int Regular = 0;
-
-        public string Title { get; set; }
-        public int PriceCode { get; set; }
+        public string Title { get; }
+        public int PriceCode { get; }
 
         public Movie(string title, int priceCode)
         {
@@ -17,5 +13,15 @@ namespace MovieRental
             PriceCode = priceCode;
         }
 
+        public int CalculateFrequentRenterPoints(int daysRented)
+        {
+            int frequentRenterPoints = 1;
+
+            // add bonus for a two day new release rental
+            if (PriceCode == MoviePricing.NewRelease && daysRented > 1)
+                frequentRenterPoints++;
+
+            return frequentRenterPoints;
+        }
     }
 }

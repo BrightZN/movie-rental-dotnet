@@ -11,40 +11,34 @@ namespace MovieRental
             DaysRented = daysRented;
         }
 
-        public int CalculateFrequentRenterPoints()
-        {
-            int frequentRenterPoints = 1;
+        public int FrequentRenterPoints => Movie.CalculateFrequentRenterPoints(DaysRented);
 
-            // add bonus for a two day new release rental
-            if (this.Movie.PriceCode == Movie.NewRelease && this.DaysRented > 1)
-                frequentRenterPoints++;
-            
-            return frequentRenterPoints;
-        }
-
-        public double CalculateAmount()
+        public double AmountOwed
         {
-            double thisAmount = 0.00;
-            
-            //determine amounts for each line
-            switch (this.Movie.PriceCode)
+            get
             {
-                case Movie.Regular:
-                    thisAmount += 2;
-                    if (this.DaysRented > 2)
-                        thisAmount += (this.DaysRented - 2) * 1.5;
-                    break;
-                case Movie.NewRelease:
-                    thisAmount += this.DaysRented * 3;
-                    break;
-                case Movie.Childrens:
-                    thisAmount += 1.5;
-                    if (this.DaysRented > 3)
-                        thisAmount += (this.DaysRented - 3) * 1.5;
-                    break;
-            }
+                double thisAmount = 0.00;
 
-            return thisAmount;
+                //determine amounts for each line
+                switch (Movie.PriceCode)
+                {
+                    case MoviePricing.Regular:
+                        thisAmount += 2;
+                        if (DaysRented > 2)
+                            thisAmount += (DaysRented - 2) * 1.5;
+                        break;
+                    case MoviePricing.NewRelease:
+                        thisAmount += DaysRented * 3;
+                        break;
+                    case MoviePricing.Childrens:
+                        thisAmount += 1.5;
+                        if (DaysRented > 3)
+                            thisAmount += (DaysRented - 3) * 1.5;
+                        break;
+                }
+
+                return thisAmount;
+            }
         }
     }
 }
