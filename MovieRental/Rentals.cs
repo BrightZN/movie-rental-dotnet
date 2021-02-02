@@ -15,19 +15,14 @@ namespace MovieRental
         public double TotalAmountOwed => _rentals.Sum(r => r.AmountOwed);
         public int TotalFrequentRenterPoints => _rentals.Sum(r => r.FrequentRenterPoints);
 
-        public string StatementLines()
+        public string StatementLines(StatementPrinter statementPrinter)
         {
             string result = "";
             
             foreach (var rental in _rentals)
-                result += LineItem(rental);
+                result += statementPrinter.LineItem(rental);
 
             return result;
-        }
-
-        private string LineItem(Rental rental)
-        {
-            return $"\t{rental.Movie.Title}\t{rental.AmountOwed}\n";
         }
     }
 }
