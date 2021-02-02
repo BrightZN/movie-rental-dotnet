@@ -23,6 +23,7 @@ namespace MovieRental
         {
             double totalAmount = 0;
             int frequentRenterPoints = 0;
+            
             string result = "Rental Record for " + Name + "\n";
 
             foreach (var rental in _rentals)
@@ -49,18 +50,20 @@ namespace MovieRental
 
                 // add frequent renter points
                 frequentRenterPoints++;
+                
                 // add bonus for a two day new release rental
                 if (rental.Movie.PriceCode == Movie.NewRelease && rental.DaysRented > 1)
                     frequentRenterPoints++;
 
                 // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t" + thisAmount.ToString() + "\n";
+                result += "\t" + rental.Movie.Title + "\t" + thisAmount + "\n";
+                
                 totalAmount += thisAmount;
             }
 
             // add footer lines
-            result += "Amount owed is " + totalAmount.ToString() + "\n";
-            result += "You earned " + frequentRenterPoints.ToString() + " frequent renter points";
+            result += "Amount owed is " + totalAmount + "\n";
+            result += "You earned " + frequentRenterPoints + " frequent renter points";
 
             return result;
         }
