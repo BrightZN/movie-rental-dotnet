@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.movie-rental-dotnet.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\ryane\source\repos\movie-rental-dotnet\.idea\.idea.movie-rental-dotnet\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
