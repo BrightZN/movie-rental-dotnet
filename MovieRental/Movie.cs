@@ -23,5 +23,30 @@ namespace MovieRental
 
             return frequentRenterPoints;
         }
+
+        public double CalculateAmountOwed(int daysRented)
+        {
+            double thisAmount = 0.00;
+
+            //determine amounts for each line
+            switch (PriceCode)
+            {
+                case MoviePricing.Regular:
+                    thisAmount += 2;
+                    if (daysRented > 2)
+                        thisAmount += (daysRented - 2) * 1.5;
+                    break;
+                case MoviePricing.NewRelease:
+                    thisAmount += daysRented * 3;
+                    break;
+                case MoviePricing.Childrens:
+                    thisAmount += 1.5;
+                    if (daysRented > 3)
+                        thisAmount += (daysRented - 3) * 1.5;
+                    break;
+            }
+
+            return thisAmount;
+        }
     }
 }
