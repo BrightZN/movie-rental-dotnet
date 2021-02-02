@@ -17,8 +17,6 @@ namespace MovieRental
 
         public string StatementLines(StatementPrinter statementPrinter)
         {
-            // statementPrinter.RentalLines(_rentals)
-            
             string result = "";
             
             foreach (var rental in _rentals)
