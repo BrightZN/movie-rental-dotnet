@@ -7,6 +7,8 @@ namespace MovieRental
     {
         private readonly IEnumerable<Rental> _rentals;
 
+        public IEnumerable<Rental> Items => _rentals;
+
         public Rentals(IEnumerable<Rental> rentals)
         {
             _rentals = rentals;
@@ -14,15 +16,5 @@ namespace MovieRental
 
         public double TotalAmountOwed => _rentals.Sum(r => r.AmountOwed);
         public int TotalFrequentRenterPoints => _rentals.Sum(r => r.FrequentRenterPoints);
-
-        public string StatementLines(StatementPrinter statementPrinter)
-        {
-            string result = "";
-            
-            foreach (var rental in _rentals)
-                result += statementPrinter.LineItem(rental);
-
-            return result;
-        }
     }
 }

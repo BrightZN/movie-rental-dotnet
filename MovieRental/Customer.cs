@@ -17,16 +17,19 @@ namespace MovieRental
 
         public string Name { get; }
 
-        public string Statement(StatementPrinter statementPrinter)
+        public string Statement()
         {
-            string result = statementPrinter.Header(Name);
-
-            result += _rentals.StatementLines(statementPrinter);
+            string result = $"Rental Record for {Name}\n";
+            
+            foreach (var rental in _rentals.Items)
+                result += $"\t{rental.Movie.Title}\t{rental.AmountOwed}\n";
 
             double totalAmount = _rentals.TotalAmountOwed;
             int frequentRenterPoints = _rentals.TotalFrequentRenterPoints;
 
-            result += statementPrinter.Footer(totalAmount, frequentRenterPoints);
+            result += $"Amount owed is {totalAmount}\n";
+            
+            result += $"You earned {frequentRenterPoints} frequent renter points";
 
             return result;
         }
