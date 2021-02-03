@@ -1,11 +1,16 @@
 ﻿namespace MovieRental
 {
-    public abstract class MoviePricing
+    public class MoviePricing
     {
         public static readonly MoviePricing Childrens = new ChildrensMovie();
         public static readonly MoviePricing NewRelease = new NewReleasePricing();
-        public static readonly MoviePricing Regular = new RegularMoviePricing();
+        public static readonly MoviePricing Regular = new MoviePricing();
 
+        private MoviePricing()
+        {
+            
+        }
+        
         public virtual double CalculateAmountOwed(int daysRented)
         {
             double amountOwed = 0.00;
@@ -17,10 +22,6 @@
                 
                 if (daysRented > 2)
                     amountOwed += (daysRented - 2) * 1.5;
-            }
-            else if (this == NewRelease)
-            {
-                amountOwed += daysRented * 3;
             }
             else if (this == Childrens)
             {
@@ -42,12 +43,9 @@
 
         private class NewReleasePricing : MoviePricing
         {
-            public override int CalculateFrequentRenterPoints(int daysRented) => daysRented > 1 ? 2 : 1;
-        }
+            public override double CalculateAmountOwed(int daysRented) => daysRented * 3;
 
-        private class RegularMoviePricing : MoviePricing
-        {
-            
+            public override int CalculateFrequentRenterPoints(int daysRented) => daysRented > 1 ? 2 : 1;
         }
 
     }
