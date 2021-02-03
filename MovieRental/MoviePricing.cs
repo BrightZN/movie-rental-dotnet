@@ -23,13 +23,6 @@
                 if (daysRented > 2)
                     amountOwed += (daysRented - 2) * 1.5;
             }
-            else if (this == Childrens)
-            {
-                amountOwed += 1.5;
-                
-                if (daysRented > 3)
-                    amountOwed += (daysRented - 3) * 1.5;
-            }
 
             return amountOwed;
         }
@@ -38,7 +31,15 @@
 
         private class ChildrensMovie : MoviePricing
         {
-            
+            public override double CalculateAmountOwed(int daysRented)
+            {
+                double amountOwed = 1.5;
+                
+                if (daysRented > 3)
+                    amountOwed += (daysRented - 3) * 1.5;
+                
+                return amountOwed;
+            }
         }
 
         private class NewReleasePricing : MoviePricing
