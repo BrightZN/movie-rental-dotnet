@@ -5,16 +5,14 @@ namespace MovieRental
 {
     public class Rentals
     {
-        private readonly IEnumerable<Rental> _rentals;
-
-        public IEnumerable<Rental> Items => _rentals;
+        public IEnumerable<Rental> Items { get; }
 
         public Rentals(IEnumerable<Rental> rentals)
         {
-            _rentals = rentals;
+            Items = rentals;
         }
 
-        public double TotalAmountOwed => _rentals.Sum(r => r.AmountOwed);
-        public int TotalFrequentRenterPoints => _rentals.Sum(r => r.FrequentRenterPoints);
+        public double TotalAmountOwed => Items.Sum(r => r.AmountOwed);
+        public int TotalFrequentRenterPoints => Items.Sum(r => r.FrequentRenterPoints);
     }
 }

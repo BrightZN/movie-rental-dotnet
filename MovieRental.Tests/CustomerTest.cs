@@ -29,7 +29,11 @@ namespace MovieRental.Tests
                 "Amount owed is 14\n" +
                 "You earned 5 frequent renter points";
 
-            Assert.Equal(expected, customer.Statement());
+            var statementPrinter = new StatementPrinter();
+
+            var actual = customer.Statement(statementPrinter);
+            
+            Assert.Equal(expected, actual);
         }
     }
 }
