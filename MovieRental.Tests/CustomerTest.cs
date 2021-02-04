@@ -29,7 +29,7 @@ namespace MovieRental.Tests
                 "Amount owed is 14\n" +
                 "You earned 5 frequent renter points";
 
-            var statementPrinter = new StatementPrinter();
+            var statementPrinter = new StatementGenerator();
 
             var actual = customer.Statement(statementPrinter);
             

@@ -16,9 +16,9 @@ namespace MovieRental
         public string Name { get; }
         public Rentals Rentals { get; }
 
-        public string Statement(StatementPrinter statementPrinter)
+        public string Statement(StatementGenerator statementGenerator)
         {
-            return statementPrinter.GenerateStatement(this);
+            return statementGenerator.GenerateStatement(this);
         }
     }
 }
