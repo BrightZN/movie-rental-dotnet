@@ -9,17 +9,13 @@ namespace MovieRental
         public Customer(string name, Rentals rentals)
         {
             Name = name;
-
             Rentals = rentals;
         }
 
         public string Name { get; }
         public Rentals Rentals { get; }
 
-        public string Statement(StatementGenerator statementGenerator)
-        {
-            return statementGenerator.GenerateStatement(this);
-        }
+        public string Statement(StatementGenerator statementGenerator) => statementGenerator.GenerateStatement(this);
     }
 }
 

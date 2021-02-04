@@ -8,7 +8,7 @@ namespace MovieRental.Tests
     public class CustomerTest
     {
         [Fact]
-        public void Statement_WithRentalList_ReturnsPlainTextStatement()
+        public void Statement_WithRentalListAndPlainTextGenerator_ReturnsPlainTextStatement()
         {
             var rentals = new Rentals(new List<Rental>
             {
@@ -29,7 +29,7 @@ namespace MovieRental.Tests
                 "Amount owed is 14\n" +
                 "You earned 5 frequent renter points";
 
-            var statementPrinter = new StatementGenerator();
+            var statementPrinter = new PlainTextStatementGenerator();
 
             var actual = customer.Statement(statementPrinter);
             

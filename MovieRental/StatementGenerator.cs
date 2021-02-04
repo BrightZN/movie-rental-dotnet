@@ -1,25 +1,21 @@
 ﻿namespace MovieRental
 {
-    public class StatementGenerator
+    public abstract class StatementGenerator
     {
-        public string GenerateStatement(Customer customer)
+        public virtual string GenerateStatement(Customer customer)
         {
             string result = Header(customer);
 
-            var customerRentals = customer.Rentals;
-            
-            result += LineItems(customerRentals);
+            result += LineItems(customer.Rentals);
 
-            int frequentRenterPoints = customerRentals.TotalFrequentRenterPoints;
-
-            result += $"Amount owed is {customerRentals.TotalAmountOwed}\n";
-            
-            result += $"You earned {frequentRenterPoints} frequent renter points";
+            result += Footer(customer.Rentals);
 
             return result;
         }
 
-        private string LineItems(Rentals rentals)
+        protected abstract string Footer(Rentals customerRentals);
+
+        protected virtual string LineItems(Rentals rentals)
         {
             string result = "";
             
@@ -29,14 +25,7 @@
             return result;
         }
 
-        private string LineItem(Rental rental)
-        {
-            return $"\t{rental.Movie.Title}\t{rental.AmountOwed}\n";
-        }
-
-        private string Header(Customer customer)
-        {
-            return $"Rental Record for {customer.Name}\n";
-        }
+        protected abstract string LineItem(Rental rental);
+        protected abstract string Header(Customer customer);
     }
 }
