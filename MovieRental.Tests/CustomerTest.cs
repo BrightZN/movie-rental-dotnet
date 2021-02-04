@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Xunit;
 using MovieRental;
@@ -7,8 +6,9 @@ namespace MovieRental.Tests
 {
     public class CustomerTest
     {
-        [Fact]
-        public void Statement_WithRentalListAndPlainTextGenerator_ReturnsPlainTextStatement()
+        private readonly Customer _customer;
+
+        public CustomerTest()
         {
             var rentals = new Rentals(new List<Rental>
             {
@@ -18,9 +18,13 @@ namespace MovieRental.Tests
                 new Rental(new Movie("Toy Story", MoviePricing.Childrens), 4)
             });
             
-            var customer = new Customer("Bob", rentals);
+            _customer = new Customer("Bob", rentals);
+        }
 
-            string expected = "" +
+        [Fact]
+        public void Statement_WithRentalListAndPlainTextGenerator_ReturnsPlainTextStatement()
+        {
+            string expected =
                 "Rental Record for Bob\n" +
                 "\tJaws\t2\n" +
                 "\tShort New\t3\n" +
@@ -31,7 +35,27 @@ namespace MovieRental.Tests
 
             var statementPrinter = new PlainTextStatementGenerator();
 
-            var actual = customer.Statement(statementPrinter);
+            var actual = _customer.Statement(statementPrinter);
+            
+            Assert.Equal(expected, actual);
+        }
+        [Fact]
+        public void Statement_WithRentalListAndHtmlGenerator_ReturnsHtmlStatement()
+        {
+            string expected = 
+                "<h1>Rental Record for <em>Bob</em></h1>\n" +
+                "<table>\n" +
+                "\t<tr><td>Jaws</td><td>2</td></tr>\n" +
+                "\t<tr><td>Short New</td><td>3</td></tr>\n" +
+                "\t<tr><td>Long New</td><td>6</td></tr>\n" +
+                "\t<tr><td>Toy Story</td><td>3</td></tr>\n" +
+                "</table>\n" +
+                "<p>Amount owed is <em>14</em></p>\n" +
+                "<p>You earned <em>5</em> frequent renter points</p>";
+
+            var statementPrinter = new HtmlStatementGenerator();
+
+            var actual = _customer.Statement(statementPrinter);
             
             Assert.Equal(expected, actual);
         }
