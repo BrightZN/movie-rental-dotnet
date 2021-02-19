@@ -5,22 +5,23 @@ namespace MovieRental
     public class Movie
     {
         public string Title { get; }
-        public MoviePricing PriceCode { get; }
+        
+        private readonly MoviePricing _priceCode;
 
         public Movie(string title, MoviePricing priceCode)
         {
             Title = title;
-            PriceCode = priceCode;
+            _priceCode = priceCode;
         }
 
         public int CalculateFrequentRenterPoints(int daysRented)
         {
-            return PriceCode.CalculateFrequentRenterPoints(daysRented);
+            return _priceCode.CalculateFrequentRenterPoints(daysRented);
         }
 
         public double CalculateAmountOwed(int daysRented)
         {
-            return PriceCode.CalculateAmountOwed(daysRented);
+            return _priceCode.CalculateAmountOwed(daysRented);
         }
     }
 }
